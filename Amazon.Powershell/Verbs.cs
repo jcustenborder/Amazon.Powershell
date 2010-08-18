@@ -7,6 +7,8 @@ namespace Amazon.Powershell
 {
     class Verbs
     {
-        public const string LIST = "list";
+        public const string LIST = "List";
+        public const string CREATE = "Create";
+        public const string DELETE = "Delete";
     }
 }

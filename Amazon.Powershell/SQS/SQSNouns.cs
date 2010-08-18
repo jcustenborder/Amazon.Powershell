@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Amazon.Powershell.SQS
 {
-
-    public class CreateQueue
+    class SQSNouns
     {
+        public const string QUEUE = "Queue";
     }
 }
