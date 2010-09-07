@@ -8,9 +8,25 @@ namespace Amazon.Powershell.EC2
     [Cmdlet(Verbs.DELETE, EC2Nouns.KEYPAIR)]
     public class DeleteKeyPairCmdlet : EC2CmdLet
     {
-        protected override void EndProcessing()
+        private string _KeyName;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string KeyName
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._KeyName;
+            }
+            set
+            {
+                this._KeyName = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonEC2 client = base.GetClient();
+            Amazon.EC2.Model.DeleteKeyPairRequest request = new Amazon.EC2.Model.DeleteKeyPairRequest();
+            request.KeyName = this._KeyName;
+            Amazon.EC2.Model.DeleteKeyPairResponse response = client.DeleteKeyPair(request);
         }
     }
 }

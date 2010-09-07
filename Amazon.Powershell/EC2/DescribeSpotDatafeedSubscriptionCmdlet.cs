@@ -8,9 +8,12 @@ namespace Amazon.Powershell.EC2
     [Cmdlet(Verbs.DESCRIBE, EC2Nouns.SPOTDATAFEEDSUBSCRIPTION)]
     public class DescribeSpotDatafeedSubscriptionCmdlet : EC2CmdLet
     {
-        protected override void EndProcessing()
+        protected override void ProcessRecord()
         {
-            throw new System.NotImplementedException();
+            AmazonEC2 client = base.GetClient();
+            Amazon.EC2.Model.DescribeSpotDatafeedSubscriptionRequest request = new Amazon.EC2.Model.DescribeSpotDatafeedSubscriptionRequest();
+            Amazon.EC2.Model.DescribeSpotDatafeedSubscriptionResponse response = client.DescribeSpotDatafeedSubscription(request);
+            base.WriteObject(response.DescribeSpotDatafeedSubscriptionResult, true);
         }
     }
 }

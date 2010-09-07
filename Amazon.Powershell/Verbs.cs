@@ -1,7 +1,7 @@
 namespace Amazon.Powershell
 {
     
-    class Verbs
+    public class Verbs
     {
         public const string MONITOR = "monitor";
         public const string DESCRIBE = "describe";

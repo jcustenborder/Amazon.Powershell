@@ -8,9 +8,25 @@ namespace Amazon.Powershell.EC2
     [Cmdlet(Verbs.RELEASE, EC2Nouns.ADDRESS)]
     public class ReleaseAddressCmdlet : EC2CmdLet
     {
-        protected override void EndProcessing()
+        private string _PublicIp;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string PublicIp
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._PublicIp;
+            }
+            set
+            {
+                this._PublicIp = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonEC2 client = base.GetClient();
+            Amazon.EC2.Model.ReleaseAddressRequest request = new Amazon.EC2.Model.ReleaseAddressRequest();
+            request.PublicIp = this._PublicIp;
+            Amazon.EC2.Model.ReleaseAddressResponse response = client.ReleaseAddress(request);
         }
     }
 }

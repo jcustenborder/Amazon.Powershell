@@ -8,9 +8,26 @@ namespace Amazon.Powershell.ElasticLoadBalancing
     [Cmdlet(Verbs.DELETE, ElasticLoadBalancingNouns.LOADBALANCER)]
     public class DeleteLoadBalancerCmdlet : ElasticLoadBalancingCmdLet
     {
-        protected override void EndProcessing()
+        private string _LoadBalancerName;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string LoadBalancerName
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._LoadBalancerName;
+            }
+            set
+            {
+                this._LoadBalancerName = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonElasticLoadBalancing client = base.GetClient();
+            Amazon.ElasticLoadBalancing.Model.DeleteLoadBalancerRequest request = new Amazon.ElasticLoadBalancing.Model.DeleteLoadBalancerRequest();
+            request.LoadBalancerName = this._LoadBalancerName;
+            Amazon.ElasticLoadBalancing.Model.DeleteLoadBalancerResponse response = client.DeleteLoadBalancer(request);
+            base.WriteObject(response.DeleteLoadBalancerResult, true);
         }
     }
 }

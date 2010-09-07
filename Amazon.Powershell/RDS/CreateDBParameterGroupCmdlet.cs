@@ -8,9 +8,54 @@ namespace Amazon.Powershell.RDS
     [Cmdlet(Verbs.CREATE, RDSNouns.DBPARAMETERGROUP)]
     public class CreateDBParameterGroupCmdlet : RDSCmdLet
     {
-        protected override void EndProcessing()
+        private string _DBParameterGroupName;
+        private string _Engine;
+        private string _Description;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string DBParameterGroupName
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._DBParameterGroupName;
+            }
+            set
+            {
+                this._DBParameterGroupName = value;
+            }
+        }
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string Engine
+        {
+            get
+            {
+                return this._Engine;
+            }
+            set
+            {
+                this._Engine = value;
+            }
+        }
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string Description
+        {
+            get
+            {
+                return this._Description;
+            }
+            set
+            {
+                this._Description = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonRDS client = base.GetClient();
+            Amazon.RDS.Model.CreateDBParameterGroupRequest request = new Amazon.RDS.Model.CreateDBParameterGroupRequest();
+            request.DBParameterGroupName = this._DBParameterGroupName;
+            request.Engine = this._Engine;
+            request.Description = this._Description;
+            Amazon.RDS.Model.CreateDBParameterGroupResponse response = client.CreateDBParameterGroup(request);
+            base.WriteObject(response.CreateDBParameterGroupResult, true);
         }
     }
 }

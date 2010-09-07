@@ -9,7 +9,9 @@ namespace Amazon.Powershell.SimpleNotificationService
     {
         protected virtual AmazonSimpleNotificationService GetClient()
         {
-            throw new System.NotSupportedException();
+            AmazonCredentials.KeyPair credentials = base.GetCredentials();
+            AmazonSimpleNotificationService client = new AmazonSimpleNotificationServiceClient(credentials.AwsAccessKeyId, credentials.AwsSecretAccessKey);
+            return client;
         }
     }
 }

@@ -8,9 +8,26 @@ namespace Amazon.Powershell.RDS
     [Cmdlet(Verbs.REBOOT, RDSNouns.DBINSTANCE)]
     public class RebootDBInstanceCmdlet : RDSCmdLet
     {
-        protected override void EndProcessing()
+        private string _DBInstanceIdentifier;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string DBInstanceIdentifier
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._DBInstanceIdentifier;
+            }
+            set
+            {
+                this._DBInstanceIdentifier = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonRDS client = base.GetClient();
+            Amazon.RDS.Model.RebootDBInstanceRequest request = new Amazon.RDS.Model.RebootDBInstanceRequest();
+            request.DBInstanceIdentifier = this._DBInstanceIdentifier;
+            Amazon.RDS.Model.RebootDBInstanceResponse response = client.RebootDBInstance(request);
+            base.WriteObject(response.RebootDBInstanceResult, true);
         }
     }
 }

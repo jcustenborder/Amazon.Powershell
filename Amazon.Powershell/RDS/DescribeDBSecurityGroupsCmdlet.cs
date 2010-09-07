@@ -8,9 +8,54 @@ namespace Amazon.Powershell.RDS
     [Cmdlet(Verbs.DESCRIBE, RDSNouns.DBSECURITYGROUPS)]
     public class DescribeDBSecurityGroupsCmdlet : RDSCmdLet
     {
-        protected override void EndProcessing()
+        private string _DBSecurityGroupName;
+        private decimal _MaxRecords;
+        private string _Marker;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string DBSecurityGroupName
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._DBSecurityGroupName;
+            }
+            set
+            {
+                this._DBSecurityGroupName = value;
+            }
+        }
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public decimal MaxRecords
+        {
+            get
+            {
+                return this._MaxRecords;
+            }
+            set
+            {
+                this._MaxRecords = value;
+            }
+        }
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string Marker
+        {
+            get
+            {
+                return this._Marker;
+            }
+            set
+            {
+                this._Marker = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonRDS client = base.GetClient();
+            Amazon.RDS.Model.DescribeDBSecurityGroupsRequest request = new Amazon.RDS.Model.DescribeDBSecurityGroupsRequest();
+            request.DBSecurityGroupName = this._DBSecurityGroupName;
+            request.MaxRecords = this._MaxRecords;
+            request.Marker = this._Marker;
+            Amazon.RDS.Model.DescribeDBSecurityGroupsResponse response = client.DescribeDBSecurityGroups(request);
+            base.WriteObject(response.DescribeDBSecurityGroupsResult, true);
         }
     }
 }

@@ -8,9 +8,25 @@ namespace Amazon.Powershell.AutoScaling
     [Cmdlet(Verbs.DELETE, AutoScalingNouns.LAUNCHCONFIGURATION)]
     public class DeleteLaunchConfigurationCmdlet : AutoScalingCmdLet
     {
-        protected override void EndProcessing()
+        private string _LaunchConfigurationName;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string LaunchConfigurationName
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._LaunchConfigurationName;
+            }
+            set
+            {
+                this._LaunchConfigurationName = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonAutoScaling client = base.GetClient();
+            Amazon.AutoScaling.Model.DeleteLaunchConfigurationRequest request = new Amazon.AutoScaling.Model.DeleteLaunchConfigurationRequest();
+            request.LaunchConfigurationName = this._LaunchConfigurationName;
+            Amazon.AutoScaling.Model.DeleteLaunchConfigurationResponse response = client.DeleteLaunchConfiguration(request);
         }
     }
 }

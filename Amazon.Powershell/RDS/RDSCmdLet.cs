@@ -9,7 +9,9 @@ namespace Amazon.Powershell.RDS
     {
         protected virtual AmazonRDS GetClient()
         {
-            throw new System.NotSupportedException();
+            AmazonCredentials.KeyPair credentials = base.GetCredentials();
+            AmazonRDS client = new AmazonRDSClient(credentials.AwsAccessKeyId, credentials.AwsSecretAccessKey);
+            return client;
         }
     }
 }

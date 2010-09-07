@@ -8,22 +8,29 @@ namespace Amazon.Powershell.EC2
     [Cmdlet(Verbs.DESCRIBE, EC2Nouns.VOLUMES)]
     public class DescribeVolumesCmdlet : EC2CmdLet
     {
-        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=true, ValueFromRemainingArguments=true)]
-        public string[] VolumeId { get; set; }
-
-        protected override void EndProcessing()
+        private string _VolumeId;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string VolumeId
         {
-            DescribeVolumesRequest request = new DescribeVolumesRequest();
-
-            if (VolumeId != null && VolumeId.Length > 0)
+            get
             {
-                request.VolumeId.AddRange(VolumeId);
+                return this._VolumeId;
             }
-
+            set
+            {
+                this._VolumeId = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
             AmazonEC2 client = base.GetClient();
-
-            DescribeVolumesResponse response = client.DescribeVolumes(request);
-            WriteObject(response.DescribeVolumesResult.Volume, true);
+            Amazon.EC2.Model.DescribeVolumesRequest request = new Amazon.EC2.Model.DescribeVolumesRequest();
+            if (string.IsNullOrEmpty(this._VolumeId))
+            {
+                request.VolumeId.Add(this._VolumeId);
+            }
+            Amazon.EC2.Model.DescribeVolumesResponse response = client.DescribeVolumes(request);
+            base.WriteObject(response.DescribeVolumesResult, true);
         }
     }
 }

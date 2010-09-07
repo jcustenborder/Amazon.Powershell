@@ -8,9 +8,28 @@ namespace Amazon.Powershell.ElasticMapReduce
     [Cmdlet(Verbs.TERMINATE, ElasticMapReduceNouns.JOBFLOWS)]
     public class TerminateJobFlowsCmdlet : ElasticMapReduceCmdLet
     {
-        protected override void EndProcessing()
+        private string _JobFlowIds;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string JobFlowIds
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._JobFlowIds;
+            }
+            set
+            {
+                this._JobFlowIds = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonElasticMapReduce client = base.GetClient();
+            Amazon.ElasticMapReduce.Model.TerminateJobFlowsRequest request = new Amazon.ElasticMapReduce.Model.TerminateJobFlowsRequest();
+            if (string.IsNullOrEmpty(this._JobFlowIds))
+            {
+                request.JobFlowIds.Add(this._JobFlowIds);
+            }
+            Amazon.ElasticMapReduce.Model.TerminateJobFlowsResponse response = client.TerminateJobFlows(request);
         }
     }
 }

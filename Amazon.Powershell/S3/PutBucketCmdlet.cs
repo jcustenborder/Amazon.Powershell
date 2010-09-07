@@ -8,9 +8,25 @@ namespace Amazon.Powershell.S3
     [Cmdlet(Verbs.PUT, S3Nouns.BUCKET)]
     public class PutBucketCmdlet : S3CmdLet
     {
-        protected override void EndProcessing()
+        private string _BucketName;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string BucketName
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._BucketName;
+            }
+            set
+            {
+                this._BucketName = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonS3 client = base.GetClient();
+            Amazon.S3.Model.PutBucketRequest request = new Amazon.S3.Model.PutBucketRequest();
+            request.BucketName = this._BucketName;
+            Amazon.S3.Model.PutBucketResponse response = client.PutBucket(request);
         }
     }
 }

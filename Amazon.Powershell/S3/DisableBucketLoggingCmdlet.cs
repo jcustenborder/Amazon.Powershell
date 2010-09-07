@@ -8,9 +8,25 @@ namespace Amazon.Powershell.S3
     [Cmdlet(Verbs.DISABLE, S3Nouns.BUCKETLOGGING)]
     public class DisableBucketLoggingCmdlet : S3CmdLet
     {
-        protected override void EndProcessing()
+        private string _BucketName;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string BucketName
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._BucketName;
+            }
+            set
+            {
+                this._BucketName = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonS3 client = base.GetClient();
+            Amazon.S3.Model.DisableBucketLoggingRequest request = new Amazon.S3.Model.DisableBucketLoggingRequest();
+            request.BucketName = this._BucketName;
+            Amazon.S3.Model.DisableBucketLoggingResponse response = client.DisableBucketLogging(request);
         }
     }
 }

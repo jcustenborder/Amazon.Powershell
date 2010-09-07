@@ -8,33 +8,40 @@ namespace Amazon.Powershell.EC2
     [Cmdlet(Verbs.CREATE, EC2Nouns.SNAPSHOT)]
     public class CreateSnapshotCmdlet : EC2CmdLet
     {
-        [Parameter(Mandatory=false)]
-        public string Description { get; set; }
-        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName=true)]
-        [ValidateNotNullOrEmpty]
-        public string VolumeId { get; set; }
-
+        private string _VolumeId;
+        private string _Description;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string VolumeId
+        {
+            get
+            {
+                return this._VolumeId;
+            }
+            set
+            {
+                this._VolumeId = value;
+            }
+        }
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string Description
+        {
+            get
+            {
+                return this._Description;
+            }
+            set
+            {
+                this._Description = value;
+            }
+        }
         protected override void ProcessRecord()
         {
-            AmazonEC2 client = GetClient();
-            CreateSnapshotRequest request = new CreateSnapshotRequest();
-            request.VolumeId = this.VolumeId;
-            request.Description = this.Description;
-
-            CreateSnapshotResponse response = client.CreateSnapshot(request);
-            WriteObject(response.CreateSnapshotResult.Snapshot);
-        }
-
-
-
-        private bool IsNullOrEmpty(System.Array array)
-        {
-            if (null == array)
-                return true;
-            if (array.Length == 0)
-                return true;
-
-            return false;
+            AmazonEC2 client = base.GetClient();
+            Amazon.EC2.Model.CreateSnapshotRequest request = new Amazon.EC2.Model.CreateSnapshotRequest();
+            request.VolumeId = this._VolumeId;
+            request.Description = this._Description;
+            Amazon.EC2.Model.CreateSnapshotResponse response = client.CreateSnapshot(request);
+            base.WriteObject(response.CreateSnapshotResult, true);
         }
     }
 }

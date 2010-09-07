@@ -9,7 +9,9 @@ namespace Amazon.Powershell.SimpleDB
     {
         protected virtual AmazonSimpleDB GetClient()
         {
-            throw new System.NotSupportedException();
+            AmazonCredentials.KeyPair credentials = base.GetCredentials();
+            AmazonSimpleDB client = new AmazonSimpleDBClient(credentials.AwsAccessKeyId, credentials.AwsSecretAccessKey);
+            return client;
         }
     }
 }

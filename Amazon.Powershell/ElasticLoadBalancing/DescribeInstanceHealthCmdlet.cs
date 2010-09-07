@@ -8,9 +8,26 @@ namespace Amazon.Powershell.ElasticLoadBalancing
     [Cmdlet(Verbs.DESCRIBE, ElasticLoadBalancingNouns.INSTANCEHEALTH)]
     public class DescribeInstanceHealthCmdlet : ElasticLoadBalancingCmdLet
     {
-        protected override void EndProcessing()
+        private string _LoadBalancerName;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string LoadBalancerName
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._LoadBalancerName;
+            }
+            set
+            {
+                this._LoadBalancerName = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonElasticLoadBalancing client = base.GetClient();
+            Amazon.ElasticLoadBalancing.Model.DescribeInstanceHealthRequest request = new Amazon.ElasticLoadBalancing.Model.DescribeInstanceHealthRequest();
+            request.LoadBalancerName = this._LoadBalancerName;
+            Amazon.ElasticLoadBalancing.Model.DescribeInstanceHealthResponse response = client.DescribeInstanceHealth(request);
+            base.WriteObject(response.DescribeInstanceHealthResult, true);
         }
     }
 }

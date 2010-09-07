@@ -9,7 +9,9 @@ namespace Amazon.Powershell.CloudFront
     {
         protected virtual AmazonCloudFront GetClient()
         {
-            throw new System.NotSupportedException();
+            AmazonCredentials.KeyPair credentials = base.GetCredentials();
+            AmazonCloudFront client = new AmazonCloudFrontClient(credentials.AwsAccessKeyId, credentials.AwsSecretAccessKey);
+            return client;
         }
     }
 }

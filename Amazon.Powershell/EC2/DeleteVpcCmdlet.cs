@@ -8,9 +8,25 @@ namespace Amazon.Powershell.EC2
     [Cmdlet(Verbs.DELETE, EC2Nouns.VPC)]
     public class DeleteVpcCmdlet : EC2CmdLet
     {
-        protected override void EndProcessing()
+        private string _VpcId;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string VpcId
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._VpcId;
+            }
+            set
+            {
+                this._VpcId = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonEC2 client = base.GetClient();
+            Amazon.EC2.Model.DeleteVpcRequest request = new Amazon.EC2.Model.DeleteVpcRequest();
+            request.VpcId = this._VpcId;
+            Amazon.EC2.Model.DeleteVpcResponse response = client.DeleteVpc(request);
         }
     }
 }

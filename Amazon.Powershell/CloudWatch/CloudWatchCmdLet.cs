@@ -9,7 +9,9 @@ namespace Amazon.Powershell.CloudWatch
     {
         protected virtual AmazonCloudWatch GetClient()
         {
-            throw new System.NotSupportedException();
+            AmazonCredentials.KeyPair credentials = base.GetCredentials();
+            AmazonCloudWatch client = new AmazonCloudWatchClient(credentials.AwsAccessKeyId, credentials.AwsSecretAccessKey);
+            return client;
         }
     }
 }

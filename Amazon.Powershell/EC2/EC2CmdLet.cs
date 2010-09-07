@@ -9,7 +9,7 @@ namespace Amazon.Powershell.EC2
     {
         protected virtual AmazonEC2 GetClient()
         {
-            AmazonCredentials.KeyPair credentials = GetCredentials();
+            AmazonCredentials.KeyPair credentials = base.GetCredentials();
             AmazonEC2 client = new AmazonEC2Client(credentials.AwsAccessKeyId, credentials.AwsSecretAccessKey);
             return client;
         }

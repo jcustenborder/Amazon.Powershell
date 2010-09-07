@@ -8,9 +8,29 @@ namespace Amazon.Powershell.EC2
     [Cmdlet(Verbs.DESCRIBE, EC2Nouns.KEYPAIRS)]
     public class DescribeKeyPairsCmdlet : EC2CmdLet
     {
-        protected override void EndProcessing()
+        private string _KeyName;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string KeyName
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._KeyName;
+            }
+            set
+            {
+                this._KeyName = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonEC2 client = base.GetClient();
+            Amazon.EC2.Model.DescribeKeyPairsRequest request = new Amazon.EC2.Model.DescribeKeyPairsRequest();
+            if (string.IsNullOrEmpty(this._KeyName))
+            {
+                request.KeyName.Add(this._KeyName);
+            }
+            Amazon.EC2.Model.DescribeKeyPairsResponse response = client.DescribeKeyPairs(request);
+            base.WriteObject(response.DescribeKeyPairsResult, true);
         }
     }
 }

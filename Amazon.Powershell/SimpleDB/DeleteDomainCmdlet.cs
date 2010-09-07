@@ -8,9 +8,25 @@ namespace Amazon.Powershell.SimpleDB
     [Cmdlet(Verbs.DELETE, SimpleDBNouns.DOMAIN)]
     public class DeleteDomainCmdlet : SimpleDBCmdLet
     {
-        protected override void EndProcessing()
+        private string _DomainName;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string DomainName
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._DomainName;
+            }
+            set
+            {
+                this._DomainName = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonSimpleDB client = base.GetClient();
+            Amazon.SimpleDB.Model.DeleteDomainRequest request = new Amazon.SimpleDB.Model.DeleteDomainRequest();
+            request.DomainName = this._DomainName;
+            Amazon.SimpleDB.Model.DeleteDomainResponse response = client.DeleteDomain(request);
         }
     }
 }

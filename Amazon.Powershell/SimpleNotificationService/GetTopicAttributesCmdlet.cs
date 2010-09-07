@@ -8,9 +8,26 @@ namespace Amazon.Powershell.SimpleNotificationService
     [Cmdlet(Verbs.GET, SimpleNotificationServiceNouns.TOPICATTRIBUTES)]
     public class GetTopicAttributesCmdlet : SimpleNotificationServiceCmdLet
     {
-        protected override void EndProcessing()
+        private string _TopicArn;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string TopicArn
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._TopicArn;
+            }
+            set
+            {
+                this._TopicArn = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonSimpleNotificationService client = base.GetClient();
+            Amazon.SimpleNotificationService.Model.GetTopicAttributesRequest request = new Amazon.SimpleNotificationService.Model.GetTopicAttributesRequest();
+            request.TopicArn = this._TopicArn;
+            Amazon.SimpleNotificationService.Model.GetTopicAttributesResponse response = client.GetTopicAttributes(request);
+            base.WriteObject(response.GetTopicAttributesResult, true);
         }
     }
 }

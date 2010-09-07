@@ -8,9 +8,26 @@ namespace Amazon.Powershell.AutoScaling
     [Cmdlet(Verbs.DESCRIBE, AutoScalingNouns.TRIGGERS)]
     public class DescribeTriggersCmdlet : AutoScalingCmdLet
     {
-        protected override void EndProcessing()
+        private string _AutoScalingGroupName;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string AutoScalingGroupName
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._AutoScalingGroupName;
+            }
+            set
+            {
+                this._AutoScalingGroupName = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonAutoScaling client = base.GetClient();
+            Amazon.AutoScaling.Model.DescribeTriggersRequest request = new Amazon.AutoScaling.Model.DescribeTriggersRequest();
+            request.AutoScalingGroupName = this._AutoScalingGroupName;
+            Amazon.AutoScaling.Model.DescribeTriggersResponse response = client.DescribeTriggers(request);
+            base.WriteObject(response.DescribeTriggersResult, true);
         }
     }
 }

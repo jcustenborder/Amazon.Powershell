@@ -8,9 +8,26 @@ namespace Amazon.Powershell.CloudWatch
     [Cmdlet(Verbs.LIST, CloudWatchNouns.METRICS)]
     public class ListMetricsCmdlet : CloudWatchCmdLet
     {
-        protected override void EndProcessing()
+        private string _NextToken;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string NextToken
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._NextToken;
+            }
+            set
+            {
+                this._NextToken = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonCloudWatch client = base.GetClient();
+            Amazon.CloudWatch.Model.ListMetricsRequest request = new Amazon.CloudWatch.Model.ListMetricsRequest();
+            request.NextToken = this._NextToken;
+            Amazon.CloudWatch.Model.ListMetricsResponse response = client.ListMetrics(request);
+            base.WriteObject(response.ListMetricsResult, true);
         }
     }
 }

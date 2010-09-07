@@ -8,9 +8,25 @@ namespace Amazon.Powershell.EC2
     [Cmdlet(Verbs.DELETE, EC2Nouns.CUSTOMERGATEWAY)]
     public class DeleteCustomerGatewayCmdlet : EC2CmdLet
     {
-        protected override void EndProcessing()
+        private string _CustomerGatewayId;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string CustomerGatewayId
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._CustomerGatewayId;
+            }
+            set
+            {
+                this._CustomerGatewayId = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonEC2 client = base.GetClient();
+            Amazon.EC2.Model.DeleteCustomerGatewayRequest request = new Amazon.EC2.Model.DeleteCustomerGatewayRequest();
+            request.CustomerGatewayId = this._CustomerGatewayId;
+            Amazon.EC2.Model.DeleteCustomerGatewayResponse response = client.DeleteCustomerGateway(request);
         }
     }
 }

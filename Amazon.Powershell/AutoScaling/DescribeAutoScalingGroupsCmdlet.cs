@@ -8,9 +8,29 @@ namespace Amazon.Powershell.AutoScaling
     [Cmdlet(Verbs.DESCRIBE, AutoScalingNouns.AUTOSCALINGGROUPS)]
     public class DescribeAutoScalingGroupsCmdlet : AutoScalingCmdLet
     {
-        protected override void EndProcessing()
+        private string _AutoScalingGroupNames;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string AutoScalingGroupNames
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._AutoScalingGroupNames;
+            }
+            set
+            {
+                this._AutoScalingGroupNames = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonAutoScaling client = base.GetClient();
+            Amazon.AutoScaling.Model.DescribeAutoScalingGroupsRequest request = new Amazon.AutoScaling.Model.DescribeAutoScalingGroupsRequest();
+            if (string.IsNullOrEmpty(this._AutoScalingGroupNames))
+            {
+                request.AutoScalingGroupNames.Add(this._AutoScalingGroupNames);
+            }
+            Amazon.AutoScaling.Model.DescribeAutoScalingGroupsResponse response = client.DescribeAutoScalingGroups(request);
+            base.WriteObject(response.DescribeAutoScalingGroupsResult, true);
         }
     }
 }

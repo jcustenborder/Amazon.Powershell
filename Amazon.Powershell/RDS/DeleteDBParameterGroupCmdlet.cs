@@ -8,9 +8,25 @@ namespace Amazon.Powershell.RDS
     [Cmdlet(Verbs.DELETE, RDSNouns.DBPARAMETERGROUP)]
     public class DeleteDBParameterGroupCmdlet : RDSCmdLet
     {
-        protected override void EndProcessing()
+        private string _DBParameterGroupName;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string DBParameterGroupName
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._DBParameterGroupName;
+            }
+            set
+            {
+                this._DBParameterGroupName = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonRDS client = base.GetClient();
+            Amazon.RDS.Model.DeleteDBParameterGroupRequest request = new Amazon.RDS.Model.DeleteDBParameterGroupRequest();
+            request.DBParameterGroupName = this._DBParameterGroupName;
+            Amazon.RDS.Model.DeleteDBParameterGroupResponse response = client.DeleteDBParameterGroup(request);
         }
     }
 }

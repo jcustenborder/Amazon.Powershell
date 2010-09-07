@@ -8,9 +8,54 @@ namespace Amazon.Powershell.RDS
     [Cmdlet(Verbs.DESCRIBE, RDSNouns.ENGINEDEFAULTPARAMETERS)]
     public class DescribeEngineDefaultParametersCmdlet : RDSCmdLet
     {
-        protected override void EndProcessing()
+        private string _Engine;
+        private decimal _MaxRecords;
+        private string _Marker;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string Engine
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._Engine;
+            }
+            set
+            {
+                this._Engine = value;
+            }
+        }
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public decimal MaxRecords
+        {
+            get
+            {
+                return this._MaxRecords;
+            }
+            set
+            {
+                this._MaxRecords = value;
+            }
+        }
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string Marker
+        {
+            get
+            {
+                return this._Marker;
+            }
+            set
+            {
+                this._Marker = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonRDS client = base.GetClient();
+            Amazon.RDS.Model.DescribeEngineDefaultParametersRequest request = new Amazon.RDS.Model.DescribeEngineDefaultParametersRequest();
+            request.Engine = this._Engine;
+            request.MaxRecords = this._MaxRecords;
+            request.Marker = this._Marker;
+            Amazon.RDS.Model.DescribeEngineDefaultParametersResponse response = client.DescribeEngineDefaultParameters(request);
+            base.WriteObject(response.DescribeEngineDefaultParametersResult, true);
         }
     }
 }

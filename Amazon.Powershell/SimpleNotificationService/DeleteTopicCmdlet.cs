@@ -8,9 +8,25 @@ namespace Amazon.Powershell.SimpleNotificationService
     [Cmdlet(Verbs.DELETE, SimpleNotificationServiceNouns.TOPIC)]
     public class DeleteTopicCmdlet : SimpleNotificationServiceCmdLet
     {
-        protected override void EndProcessing()
+        private string _TopicArn;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string TopicArn
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._TopicArn;
+            }
+            set
+            {
+                this._TopicArn = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonSimpleNotificationService client = base.GetClient();
+            Amazon.SimpleNotificationService.Model.DeleteTopicRequest request = new Amazon.SimpleNotificationService.Model.DeleteTopicRequest();
+            request.TopicArn = this._TopicArn;
+            Amazon.SimpleNotificationService.Model.DeleteTopicResponse response = client.DeleteTopic(request);
         }
     }
 }

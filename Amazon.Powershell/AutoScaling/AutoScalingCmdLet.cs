@@ -9,7 +9,9 @@ namespace Amazon.Powershell.AutoScaling
     {
         protected virtual AmazonAutoScaling GetClient()
         {
-            throw new System.NotSupportedException();
+            AmazonCredentials.KeyPair credentials = base.GetCredentials();
+            AmazonAutoScaling client = new AmazonAutoScalingClient(credentials.AwsAccessKeyId, credentials.AwsSecretAccessKey);
+            return client;
         }
     }
 }

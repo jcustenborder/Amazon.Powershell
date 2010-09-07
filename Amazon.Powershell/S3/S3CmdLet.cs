@@ -9,7 +9,9 @@ namespace Amazon.Powershell.S3
     {
         protected virtual AmazonS3 GetClient()
         {
-            throw new System.NotSupportedException();
+            AmazonCredentials.KeyPair credentials = base.GetCredentials();
+            AmazonS3 client = new AmazonS3Client(credentials.AwsAccessKeyId, credentials.AwsSecretAccessKey);
+            return client;
         }
     }
 }

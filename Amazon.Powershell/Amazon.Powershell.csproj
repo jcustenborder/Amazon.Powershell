@@ -104,7 +104,6 @@
     <Compile Include="EC2\AuthorizeSecurityGroupIngressCmdlet.cs" />
     <Compile Include="EC2\BundleInstanceCmdlet.cs" />
     <Compile Include="EC2\CancelBundleTaskCmdlet.cs" />
-    <Compile Include="EC2\CancelledSpotInstanceCmdlet.cs" />
     <Compile Include="EC2\CancelSpotInstancesCmdlet.cs" />
     <Compile Include="EC2\ConfirmProductInstanceCmdlet.cs" />
     <Compile Include="EC2\CreateCustomerGatewayCmdlet.cs" />
@@ -175,7 +174,6 @@
     <Compile Include="EC2\ResetSnapshotAttributeCmdlet.cs" />
     <Compile Include="EC2\RevokeSecurityGroupIngressCmdlet.cs" />
     <Compile Include="EC2\RunInstancesCmdlet.cs" />
-    <Compile Include="EC2\SpotInstanceCmdlet.cs" />
     <Compile Include="EC2\SpotInstancesCmdlet.cs" />
     <Compile Include="EC2\StartInstancesCmdlet.cs" />
     <Compile Include="EC2\StopInstancesCmdlet.cs" />

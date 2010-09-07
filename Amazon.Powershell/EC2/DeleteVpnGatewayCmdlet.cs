@@ -8,9 +8,25 @@ namespace Amazon.Powershell.EC2
     [Cmdlet(Verbs.DELETE, EC2Nouns.VPNGATEWAY)]
     public class DeleteVpnGatewayCmdlet : EC2CmdLet
     {
-        protected override void EndProcessing()
+        private string _VpnGatewayId;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string VpnGatewayId
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._VpnGatewayId;
+            }
+            set
+            {
+                this._VpnGatewayId = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonEC2 client = base.GetClient();
+            Amazon.EC2.Model.DeleteVpnGatewayRequest request = new Amazon.EC2.Model.DeleteVpnGatewayRequest();
+            request.VpnGatewayId = this._VpnGatewayId;
+            Amazon.EC2.Model.DeleteVpnGatewayResponse response = client.DeleteVpnGateway(request);
         }
     }
 }

@@ -9,7 +9,9 @@ namespace Amazon.Powershell.ElasticMapReduce
     {
         protected virtual AmazonElasticMapReduce GetClient()
         {
-            throw new System.NotSupportedException();
+            AmazonCredentials.KeyPair credentials = base.GetCredentials();
+            AmazonElasticMapReduce client = new AmazonElasticMapReduceClient(credentials.AwsAccessKeyId, credentials.AwsSecretAccessKey);
+            return client;
         }
     }
 }

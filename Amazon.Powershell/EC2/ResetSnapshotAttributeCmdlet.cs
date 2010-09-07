@@ -8,9 +8,39 @@ namespace Amazon.Powershell.EC2
     [Cmdlet(Verbs.RESET, EC2Nouns.SNAPSHOTATTRIBUTE)]
     public class ResetSnapshotAttributeCmdlet : EC2CmdLet
     {
-        protected override void EndProcessing()
+        private string _SnapshotId;
+        private string _Attribute;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string SnapshotId
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._SnapshotId;
+            }
+            set
+            {
+                this._SnapshotId = value;
+            }
+        }
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string Attribute
+        {
+            get
+            {
+                return this._Attribute;
+            }
+            set
+            {
+                this._Attribute = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonEC2 client = base.GetClient();
+            Amazon.EC2.Model.ResetSnapshotAttributeRequest request = new Amazon.EC2.Model.ResetSnapshotAttributeRequest();
+            request.SnapshotId = this._SnapshotId;
+            request.Attribute = this._Attribute;
+            Amazon.EC2.Model.ResetSnapshotAttributeResponse response = client.ResetSnapshotAttribute(request);
         }
     }
 }

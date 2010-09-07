@@ -8,9 +8,26 @@ namespace Amazon.Powershell.ElasticLoadBalancing
     [Cmdlet(Verbs.DEREGISTER, ElasticLoadBalancingNouns.INSTANCESFROMLOADBALANCER)]
     public class DeregisterInstancesFromLoadBalancerCmdlet : ElasticLoadBalancingCmdLet
     {
-        protected override void EndProcessing()
+        private string _LoadBalancerName;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string LoadBalancerName
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._LoadBalancerName;
+            }
+            set
+            {
+                this._LoadBalancerName = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonElasticLoadBalancing client = base.GetClient();
+            Amazon.ElasticLoadBalancing.Model.DeregisterInstancesFromLoadBalancerRequest request = new Amazon.ElasticLoadBalancing.Model.DeregisterInstancesFromLoadBalancerRequest();
+            request.LoadBalancerName = this._LoadBalancerName;
+            Amazon.ElasticLoadBalancing.Model.DeregisterInstancesFromLoadBalancerResponse response = client.DeregisterInstancesFromLoadBalancer(request);
+            base.WriteObject(response.DeregisterInstancesFromLoadBalancerResult, true);
         }
     }
 }

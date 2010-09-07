@@ -8,9 +8,26 @@ namespace Amazon.Powershell.EC2
     [Cmdlet(Verbs.CREATE, EC2Nouns.KEYPAIR)]
     public class CreateKeyPairCmdlet : EC2CmdLet
     {
-        protected override void EndProcessing()
+        private string _KeyName;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string KeyName
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._KeyName;
+            }
+            set
+            {
+                this._KeyName = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonEC2 client = base.GetClient();
+            Amazon.EC2.Model.CreateKeyPairRequest request = new Amazon.EC2.Model.CreateKeyPairRequest();
+            request.KeyName = this._KeyName;
+            Amazon.EC2.Model.CreateKeyPairResponse response = client.CreateKeyPair(request);
+            base.WriteObject(response.CreateKeyPairResult, true);
         }
     }
 }

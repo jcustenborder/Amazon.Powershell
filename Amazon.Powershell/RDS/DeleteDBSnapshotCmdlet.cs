@@ -8,9 +8,26 @@ namespace Amazon.Powershell.RDS
     [Cmdlet(Verbs.DELETE, RDSNouns.DBSNAPSHOT)]
     public class DeleteDBSnapshotCmdlet : RDSCmdLet
     {
-        protected override void EndProcessing()
+        private string _DBSnapshotIdentifier;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string DBSnapshotIdentifier
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._DBSnapshotIdentifier;
+            }
+            set
+            {
+                this._DBSnapshotIdentifier = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonRDS client = base.GetClient();
+            Amazon.RDS.Model.DeleteDBSnapshotRequest request = new Amazon.RDS.Model.DeleteDBSnapshotRequest();
+            request.DBSnapshotIdentifier = this._DBSnapshotIdentifier;
+            Amazon.RDS.Model.DeleteDBSnapshotResponse response = client.DeleteDBSnapshot(request);
+            base.WriteObject(response.DeleteDBSnapshotResult, true);
         }
     }
 }

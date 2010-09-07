@@ -8,9 +8,40 @@ namespace Amazon.Powershell.SimpleNotificationService
     [Cmdlet(Verbs.LIST, SimpleNotificationServiceNouns.SUBSCRIPTIONSBYTOPIC)]
     public class ListSubscriptionsByTopicCmdlet : SimpleNotificationServiceCmdLet
     {
-        protected override void EndProcessing()
+        private string _TopicArn;
+        private string _NextToken;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string TopicArn
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._TopicArn;
+            }
+            set
+            {
+                this._TopicArn = value;
+            }
+        }
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string NextToken
+        {
+            get
+            {
+                return this._NextToken;
+            }
+            set
+            {
+                this._NextToken = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonSimpleNotificationService client = base.GetClient();
+            Amazon.SimpleNotificationService.Model.ListSubscriptionsByTopicRequest request = new Amazon.SimpleNotificationService.Model.ListSubscriptionsByTopicRequest();
+            request.TopicArn = this._TopicArn;
+            request.NextToken = this._NextToken;
+            Amazon.SimpleNotificationService.Model.ListSubscriptionsByTopicResponse response = client.ListSubscriptionsByTopic(request);
+            base.WriteObject(response.ListSubscriptionsByTopicResult, true);
         }
     }
 }

@@ -8,9 +8,29 @@ namespace Amazon.Powershell.EC2
     [Cmdlet(Verbs.DESCRIBE, EC2Nouns.CUSTOMERGATEWAYS)]
     public class DescribeCustomerGatewaysCmdlet : EC2CmdLet
     {
-        protected override void EndProcessing()
+        private string _CustomerGatewayId;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string CustomerGatewayId
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._CustomerGatewayId;
+            }
+            set
+            {
+                this._CustomerGatewayId = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonEC2 client = base.GetClient();
+            Amazon.EC2.Model.DescribeCustomerGatewaysRequest request = new Amazon.EC2.Model.DescribeCustomerGatewaysRequest();
+            if (string.IsNullOrEmpty(this._CustomerGatewayId))
+            {
+                request.CustomerGatewayId.Add(this._CustomerGatewayId);
+            }
+            Amazon.EC2.Model.DescribeCustomerGatewaysResponse response = client.DescribeCustomerGateways(request);
+            base.WriteObject(response.DescribeCustomerGatewaysResult, true);
         }
     }
 }

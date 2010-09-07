@@ -8,9 +8,54 @@ namespace Amazon.Powershell.ElasticMapReduce
     [Cmdlet(Verbs.RUN, ElasticMapReduceNouns.JOBFLOW)]
     public class RunJobFlowCmdlet : ElasticMapReduceCmdLet
     {
-        protected override void EndProcessing()
+        private string _Name;
+        private string _LogUri;
+        private string _AdditionalInfo;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string Name
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._Name;
+            }
+            set
+            {
+                this._Name = value;
+            }
+        }
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string LogUri
+        {
+            get
+            {
+                return this._LogUri;
+            }
+            set
+            {
+                this._LogUri = value;
+            }
+        }
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string AdditionalInfo
+        {
+            get
+            {
+                return this._AdditionalInfo;
+            }
+            set
+            {
+                this._AdditionalInfo = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonElasticMapReduce client = base.GetClient();
+            Amazon.ElasticMapReduce.Model.RunJobFlowRequest request = new Amazon.ElasticMapReduce.Model.RunJobFlowRequest();
+            request.Name = this._Name;
+            request.LogUri = this._LogUri;
+            request.AdditionalInfo = this._AdditionalInfo;
+            Amazon.ElasticMapReduce.Model.RunJobFlowResponse response = client.RunJobFlow(request);
+            base.WriteObject(response.RunJobFlowResult, true);
         }
     }
 }

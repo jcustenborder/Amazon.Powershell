@@ -8,9 +8,12 @@ namespace Amazon.Powershell.EC2
     [Cmdlet(Verbs.CREATE, EC2Nouns.DHCPOPTIONS)]
     public class CreateDhcpOptionsCmdlet : EC2CmdLet
     {
-        protected override void EndProcessing()
+        protected override void ProcessRecord()
         {
-            throw new System.NotImplementedException();
+            AmazonEC2 client = base.GetClient();
+            Amazon.EC2.Model.CreateDhcpOptionsRequest request = new Amazon.EC2.Model.CreateDhcpOptionsRequest();
+            Amazon.EC2.Model.CreateDhcpOptionsResponse response = client.CreateDhcpOptions(request);
+            base.WriteObject(response.CreateDhcpOptionsResult, true);
         }
     }
 }

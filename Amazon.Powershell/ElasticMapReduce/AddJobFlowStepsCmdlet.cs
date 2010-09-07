@@ -8,9 +8,25 @@ namespace Amazon.Powershell.ElasticMapReduce
     [Cmdlet(Verbs.ADD, ElasticMapReduceNouns.JOBFLOWSTEPS)]
     public class AddJobFlowStepsCmdlet : ElasticMapReduceCmdLet
     {
-        protected override void EndProcessing()
+        private string _JobFlowId;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string JobFlowId
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._JobFlowId;
+            }
+            set
+            {
+                this._JobFlowId = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonElasticMapReduce client = base.GetClient();
+            Amazon.ElasticMapReduce.Model.AddJobFlowStepsRequest request = new Amazon.ElasticMapReduce.Model.AddJobFlowStepsRequest();
+            request.JobFlowId = this._JobFlowId;
+            Amazon.ElasticMapReduce.Model.AddJobFlowStepsResponse response = client.AddJobFlowSteps(request);
         }
     }
 }

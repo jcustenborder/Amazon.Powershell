@@ -8,9 +8,25 @@ namespace Amazon.Powershell.SimpleDB
     [Cmdlet(Verbs.BATCH, SimpleDBNouns.PUTATTRIBUTES)]
     public class BatchPutAttributesCmdlet : SimpleDBCmdLet
     {
-        protected override void EndProcessing()
+        private string _DomainName;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string DomainName
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._DomainName;
+            }
+            set
+            {
+                this._DomainName = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonSimpleDB client = base.GetClient();
+            Amazon.SimpleDB.Model.BatchPutAttributesRequest request = new Amazon.SimpleDB.Model.BatchPutAttributesRequest();
+            request.DomainName = this._DomainName;
+            Amazon.SimpleDB.Model.BatchPutAttributesResponse response = client.BatchPutAttributes(request);
         }
     }
 }

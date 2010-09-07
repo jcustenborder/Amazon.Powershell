@@ -1,7 +1,7 @@
 namespace Amazon.Powershell.EC2
 {
     
-    class EC2Nouns
+    public class EC2Nouns
     {
         public const string INSTANCES = "instances";
         public const string SNAPSHOTATTRIBUTE = "snapshotattribute";

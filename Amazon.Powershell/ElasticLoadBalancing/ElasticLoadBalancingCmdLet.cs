@@ -9,7 +9,9 @@ namespace Amazon.Powershell.ElasticLoadBalancing
     {
         protected virtual AmazonElasticLoadBalancing GetClient()
         {
-            throw new System.NotSupportedException();
+            AmazonCredentials.KeyPair credentials = base.GetCredentials();
+            AmazonElasticLoadBalancing client = new AmazonElasticLoadBalancingClient(credentials.AwsAccessKeyId, credentials.AwsSecretAccessKey);
+            return client;
         }
     }
 }

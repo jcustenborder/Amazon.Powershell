@@ -8,9 +8,25 @@ namespace Amazon.Powershell.EC2
     [Cmdlet(Verbs.DELETE, EC2Nouns.SUBNET)]
     public class DeleteSubnetCmdlet : EC2CmdLet
     {
-        protected override void EndProcessing()
+        private string _SubnetId;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string SubnetId
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._SubnetId;
+            }
+            set
+            {
+                this._SubnetId = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonEC2 client = base.GetClient();
+            Amazon.EC2.Model.DeleteSubnetRequest request = new Amazon.EC2.Model.DeleteSubnetRequest();
+            request.SubnetId = this._SubnetId;
+            Amazon.EC2.Model.DeleteSubnetResponse response = client.DeleteSubnet(request);
         }
     }
 }

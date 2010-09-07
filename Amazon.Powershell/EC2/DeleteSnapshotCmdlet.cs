@@ -8,9 +8,25 @@ namespace Amazon.Powershell.EC2
     [Cmdlet(Verbs.DELETE, EC2Nouns.SNAPSHOT)]
     public class DeleteSnapshotCmdlet : EC2CmdLet
     {
-        protected override void EndProcessing()
+        private string _SnapshotId;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string SnapshotId
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._SnapshotId;
+            }
+            set
+            {
+                this._SnapshotId = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonEC2 client = base.GetClient();
+            Amazon.EC2.Model.DeleteSnapshotRequest request = new Amazon.EC2.Model.DeleteSnapshotRequest();
+            request.SnapshotId = this._SnapshotId;
+            Amazon.EC2.Model.DeleteSnapshotResponse response = client.DeleteSnapshot(request);
         }
     }
 }

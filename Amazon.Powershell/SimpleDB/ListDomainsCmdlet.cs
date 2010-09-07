@@ -8,9 +8,40 @@ namespace Amazon.Powershell.SimpleDB
     [Cmdlet(Verbs.LIST, SimpleDBNouns.DOMAINS)]
     public class ListDomainsCmdlet : SimpleDBCmdLet
     {
-        protected override void EndProcessing()
+        private decimal _MaxNumberOfDomains;
+        private string _NextToken;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public decimal MaxNumberOfDomains
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._MaxNumberOfDomains;
+            }
+            set
+            {
+                this._MaxNumberOfDomains = value;
+            }
+        }
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string NextToken
+        {
+            get
+            {
+                return this._NextToken;
+            }
+            set
+            {
+                this._NextToken = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonSimpleDB client = base.GetClient();
+            Amazon.SimpleDB.Model.ListDomainsRequest request = new Amazon.SimpleDB.Model.ListDomainsRequest();
+            request.MaxNumberOfDomains = this._MaxNumberOfDomains;
+            request.NextToken = this._NextToken;
+            Amazon.SimpleDB.Model.ListDomainsResponse response = client.ListDomains(request);
+            base.WriteObject(response.ListDomainsResult, true);
         }
     }
 }

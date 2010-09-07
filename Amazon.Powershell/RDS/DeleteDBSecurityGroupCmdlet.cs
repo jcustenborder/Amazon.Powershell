@@ -8,9 +8,25 @@ namespace Amazon.Powershell.RDS
     [Cmdlet(Verbs.DELETE, RDSNouns.DBSECURITYGROUP)]
     public class DeleteDBSecurityGroupCmdlet : RDSCmdLet
     {
-        protected override void EndProcessing()
+        private string _DBSecurityGroupName;
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        public string DBSecurityGroupName
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return this._DBSecurityGroupName;
+            }
+            set
+            {
+                this._DBSecurityGroupName = value;
+            }
+        }
+        protected override void ProcessRecord()
+        {
+            AmazonRDS client = base.GetClient();
+            Amazon.RDS.Model.DeleteDBSecurityGroupRequest request = new Amazon.RDS.Model.DeleteDBSecurityGroupRequest();
+            request.DBSecurityGroupName = this._DBSecurityGroupName;
+            Amazon.RDS.Model.DeleteDBSecurityGroupResponse response = client.DeleteDBSecurityGroup(request);
         }
     }
 }
