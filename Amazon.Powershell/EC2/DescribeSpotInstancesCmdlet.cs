@@ -30,7 +30,7 @@ namespace Amazon.Powershell.EC2
                 request.SpotInstanceRequestId.Add(this._SpotInstanceRequestId);
             }
             Amazon.EC2.Model.DescribeSpotInstanceRequestsResponse response = client.DescribeSpotInstanceRequests(request);
-            base.WriteObject(response.DescribeSpotInstanceRequestsResult, true);
+            base.WriteObject(response.DescribeSpotInstanceRequestsResult.SpotInstanceRequest, true);
         }
     }
 }

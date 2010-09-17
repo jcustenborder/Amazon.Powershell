@@ -55,7 +55,7 @@ namespace Amazon.Powershell.EC2
             request.CustomerGatewayId = this._CustomerGatewayId;
             request.VpnGatewayId = this._VpnGatewayId;
             Amazon.EC2.Model.CreateVpnConnectionResponse response = client.CreateVpnConnection(request);
-            base.WriteObject(response.CreateVpnConnectionResult, true);
+            base.WriteObject(response.CreateVpnConnectionResult.VpnConnection, true);
         }
     }
 }

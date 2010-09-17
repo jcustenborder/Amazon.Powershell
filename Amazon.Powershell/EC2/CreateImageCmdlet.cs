@@ -69,7 +69,7 @@ namespace Amazon.Powershell.EC2
             request.Description = this._Description;
             request.NoReboot = this._NoReboot;
             Amazon.EC2.Model.CreateImageResponse response = client.CreateImage(request);
-            base.WriteObject(response.CreateImageResult, true);
+            base.WriteObject(response.CreateImageResult.ImageId, true);
         }
     }
 }

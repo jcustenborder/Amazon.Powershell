@@ -27,7 +27,7 @@ namespace Amazon.Powershell.EC2
             Amazon.EC2.Model.CreateVpcRequest request = new Amazon.EC2.Model.CreateVpcRequest();
             request.CidrBlock = this._CidrBlock;
             Amazon.EC2.Model.CreateVpcResponse response = client.CreateVpc(request);
-            base.WriteObject(response.CreateVpcResult, true);
+            base.WriteObject(response.CreateVpcResult.Vpc, true);
         }
     }
 }

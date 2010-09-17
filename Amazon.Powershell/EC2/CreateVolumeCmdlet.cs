@@ -55,7 +55,7 @@ namespace Amazon.Powershell.EC2
             request.SnapshotId = this._SnapshotId;
             request.AvailabilityZone = this._AvailabilityZone;
             Amazon.EC2.Model.CreateVolumeResponse response = client.CreateVolume(request);
-            base.WriteObject(response.CreateVolumeResult, true);
+            base.WriteObject(response.CreateVolumeResult.Volume, true);
         }
     }
 }

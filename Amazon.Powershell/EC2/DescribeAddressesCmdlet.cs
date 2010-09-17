@@ -30,7 +30,7 @@ namespace Amazon.Powershell.EC2
                 request.PublicIp.Add(this._PublicIp);
             }
             Amazon.EC2.Model.DescribeAddressesResponse response = client.DescribeAddresses(request);
-            base.WriteObject(response.DescribeAddressesResult, true);
+            base.WriteObject(response.DescribeAddressesResult.Address, true);
         }
     }
 }

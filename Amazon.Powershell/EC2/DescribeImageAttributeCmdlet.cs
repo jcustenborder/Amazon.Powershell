@@ -41,7 +41,7 @@ namespace Amazon.Powershell.EC2
             request.ImageId = this._ImageId;
             request.Attribute = this._Attribute;
             Amazon.EC2.Model.DescribeImageAttributeResponse response = client.DescribeImageAttribute(request);
-            base.WriteObject(response.DescribeImageAttributeResult, true);
+            base.WriteObject(response.DescribeImageAttributeResult.ImageAttribute, true);
         }
     }
 }

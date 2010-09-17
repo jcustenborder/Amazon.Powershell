@@ -41,7 +41,7 @@ namespace Amazon.Powershell.EC2
             request.InstanceId = this._InstanceId;
             request.Attribute = this._Attribute;
             Amazon.EC2.Model.DescribeInstanceAttributeResponse response = client.DescribeInstanceAttribute(request);
-            base.WriteObject(response.DescribeInstanceAttributeResult, true);
+            base.WriteObject(response.DescribeInstanceAttributeResult.InstanceAttribute, true);
         }
     }
 }

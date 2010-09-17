@@ -30,7 +30,7 @@ namespace Amazon.Powershell.EC2
                 request.ZoneName.Add(this._ZoneName);
             }
             Amazon.EC2.Model.DescribeAvailabilityZonesResponse response = client.DescribeAvailabilityZones(request);
-            base.WriteObject(response.DescribeAvailabilityZonesResult, true);
+            base.WriteObject(response.DescribeAvailabilityZonesResult.AvailabilityZone, true);
         }
     }
 }

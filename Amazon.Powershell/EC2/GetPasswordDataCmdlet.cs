@@ -27,7 +27,7 @@ namespace Amazon.Powershell.EC2
             Amazon.EC2.Model.GetPasswordDataRequest request = new Amazon.EC2.Model.GetPasswordDataRequest();
             request.InstanceId = this._InstanceId;
             Amazon.EC2.Model.GetPasswordDataResponse response = client.GetPasswordData(request);
-            base.WriteObject(response.GetPasswordDataResult, true);
+            base.WriteObject(response.GetPasswordDataResult.PasswordData, true);
         }
     }
 }

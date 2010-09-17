@@ -10,7 +10,7 @@ namespace Amazon.Powershell.EC2
     {
         private string _VolumeId;
         private string _Description;
-        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=true)]
         public string VolumeId
         {
             get
@@ -41,7 +41,7 @@ namespace Amazon.Powershell.EC2
             request.VolumeId = this._VolumeId;
             request.Description = this._Description;
             Amazon.EC2.Model.CreateSnapshotResponse response = client.CreateSnapshot(request);
-            base.WriteObject(response.CreateSnapshotResult, true);
+            base.WriteObject(response.CreateSnapshotResult.Snapshot, true);
         }
     }
 }

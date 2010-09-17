@@ -30,7 +30,7 @@ namespace Amazon.Powershell.EC2
                 request.DhcpOptionsId.Add(this._DhcpOptionsId);
             }
             Amazon.EC2.Model.DescribeDhcpOptionsResponse response = client.DescribeDhcpOptions(request);
-            base.WriteObject(response.DescribeDhcpOptionsResult, true);
+            base.WriteObject(response.DescribeDhcpOptionsResult.DhcpOptions, true);
         }
     }
 }

@@ -58,7 +58,7 @@ namespace Amazon.Powershell.EC2
             request.Owner = this._Owner;
             request.RestorableBy = this._RestorableBy;
             Amazon.EC2.Model.DescribeSnapshotsResponse response = client.DescribeSnapshots(request);
-            base.WriteObject(response.DescribeSnapshotsResult, true);
+            base.WriteObject(response.DescribeSnapshotsResult.Snapshot, true);
         }
     }
 }

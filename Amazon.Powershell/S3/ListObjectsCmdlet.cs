@@ -13,7 +13,7 @@ namespace Amazon.Powershell.S3
         private string _Marker;
         private int _MaxKeys;
         private string _Delimiter;
-        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        [Parameter(Mandatory=true, ValueFromPipelineByPropertyName=false)]
         public string BucketName
         {
             get

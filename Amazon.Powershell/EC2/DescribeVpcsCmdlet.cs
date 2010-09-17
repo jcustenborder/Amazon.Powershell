@@ -30,7 +30,7 @@ namespace Amazon.Powershell.EC2
                 request.VpcId.Add(this._VpcId);
             }
             Amazon.EC2.Model.DescribeVpcsResponse response = client.DescribeVpcs(request);
-            base.WriteObject(response.DescribeVpcsResult, true);
+            base.WriteObject(response.DescribeVpcsResult.Vpc, true);
         }
     }
 }

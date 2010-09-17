@@ -111,7 +111,7 @@ namespace Amazon.Powershell.EC2
             request.RamdiskId = this._RamdiskId;
             request.RootDeviceName = this._RootDeviceName;
             Amazon.EC2.Model.RegisterImageResponse response = client.RegisterImage(request);
-            base.WriteObject(response.RegisterImageResult, true);
+            base.WriteObject(response.RegisterImageResult.ImageId, true);
         }
     }
 }

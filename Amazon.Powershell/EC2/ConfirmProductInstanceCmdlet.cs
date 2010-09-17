@@ -41,7 +41,7 @@ namespace Amazon.Powershell.EC2
             request.ProductCode = this._ProductCode;
             request.InstanceId = this._InstanceId;
             Amazon.EC2.Model.ConfirmProductInstanceResponse response = client.ConfirmProductInstance(request);
-            base.WriteObject(response.ConfirmProductInstanceResult, true);
+            base.WriteObject(response.ConfirmProductInstanceResult.OwnerId, true);
         }
     }
 }

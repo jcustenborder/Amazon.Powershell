@@ -64,7 +64,7 @@ namespace Amazon.Powershell.EC2
                 request.ExecutableBy.Add(this._ExecutableBy);
             }
             Amazon.EC2.Model.DescribeImagesResponse response = client.DescribeImages(request);
-            base.WriteObject(response.DescribeImagesResult, true);
+            base.WriteObject(response.DescribeImagesResult.Image, true);
         }
     }
 }

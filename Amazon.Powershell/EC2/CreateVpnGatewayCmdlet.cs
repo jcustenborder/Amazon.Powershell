@@ -41,7 +41,7 @@ namespace Amazon.Powershell.EC2
             request.Type = this._Type;
             request.AvailabilityZone = this._AvailabilityZone;
             Amazon.EC2.Model.CreateVpnGatewayResponse response = client.CreateVpnGateway(request);
-            base.WriteObject(response.CreateVpnGatewayResult, true);
+            base.WriteObject(response.CreateVpnGatewayResult.VpnGateway, true);
         }
     }
 }

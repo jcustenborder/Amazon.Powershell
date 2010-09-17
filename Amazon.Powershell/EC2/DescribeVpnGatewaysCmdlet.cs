@@ -30,7 +30,7 @@ namespace Amazon.Powershell.EC2
                 request.VpnGatewayId.Add(this._VpnGatewayId);
             }
             Amazon.EC2.Model.DescribeVpnGatewaysResponse response = client.DescribeVpnGateways(request);
-            base.WriteObject(response.DescribeVpnGatewaysResult, true);
+            base.WriteObject(response.DescribeVpnGatewaysResult.VpnGateway, true);
         }
     }
 }

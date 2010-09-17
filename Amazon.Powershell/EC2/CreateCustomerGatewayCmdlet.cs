@@ -55,7 +55,7 @@ namespace Amazon.Powershell.EC2
             request.IpAddress = this._IpAddress;
             request.BgpAsn = this._BgpAsn;
             Amazon.EC2.Model.CreateCustomerGatewayResponse response = client.CreateCustomerGateway(request);
-            base.WriteObject(response.CreateCustomerGatewayResult, true);
+            base.WriteObject(response.CreateCustomerGatewayResult.CustomerGateway, true);
         }
     }
 }

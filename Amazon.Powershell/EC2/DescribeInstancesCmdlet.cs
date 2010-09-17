@@ -30,7 +30,7 @@ namespace Amazon.Powershell.EC2
                 request.InstanceId.Add(this._InstanceId);
             }
             Amazon.EC2.Model.DescribeInstancesResponse response = client.DescribeInstances(request);
-            base.WriteObject(response.DescribeInstancesResult, true);
+            base.WriteObject(response.DescribeInstancesResult.Reservation, true);
         }
     }
 }

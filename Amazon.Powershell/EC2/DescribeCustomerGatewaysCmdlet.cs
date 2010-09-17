@@ -30,7 +30,7 @@ namespace Amazon.Powershell.EC2
                 request.CustomerGatewayId.Add(this._CustomerGatewayId);
             }
             Amazon.EC2.Model.DescribeCustomerGatewaysResponse response = client.DescribeCustomerGateways(request);
-            base.WriteObject(response.DescribeCustomerGatewaysResult, true);
+            base.WriteObject(response.DescribeCustomerGatewaysResult.CustomerGateway, true);
         }
     }
 }

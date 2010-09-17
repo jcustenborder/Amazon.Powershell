@@ -30,7 +30,7 @@ namespace Amazon.Powershell.EC2
                 request.BundleId.Add(this._BundleId);
             }
             Amazon.EC2.Model.DescribeBundleTasksResponse response = client.DescribeBundleTasks(request);
-            base.WriteObject(response.DescribeBundleTasksResult, true);
+            base.WriteObject(response.DescribeBundleTasksResult.BundleTask, true);
         }
     }
 }

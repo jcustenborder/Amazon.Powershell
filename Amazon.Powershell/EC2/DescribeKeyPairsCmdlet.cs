@@ -30,7 +30,7 @@ namespace Amazon.Powershell.EC2
                 request.KeyName.Add(this._KeyName);
             }
             Amazon.EC2.Model.DescribeKeyPairsResponse response = client.DescribeKeyPairs(request);
-            base.WriteObject(response.DescribeKeyPairsResult, true);
+            base.WriteObject(response.DescribeKeyPairsResult.KeyPair, true);
         }
     }
 }

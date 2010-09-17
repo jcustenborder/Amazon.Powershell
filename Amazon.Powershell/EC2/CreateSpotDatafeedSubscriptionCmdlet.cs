@@ -41,7 +41,7 @@ namespace Amazon.Powershell.EC2
             request.Bucket = this._Bucket;
             request.Prefix = this._Prefix;
             Amazon.EC2.Model.CreateSpotDatafeedSubscriptionResponse response = client.CreateSpotDatafeedSubscription(request);
-            base.WriteObject(response.CreateSpotDatafeedSubscriptionResult, true);
+            base.WriteObject(response.CreateSpotDatafeedSubscriptionResult.SpotDatafeedSubscription, true);
         }
     }
 }

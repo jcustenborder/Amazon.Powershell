@@ -30,7 +30,7 @@ namespace Amazon.Powershell.EC2
                 request.GroupName.Add(this._GroupName);
             }
             Amazon.EC2.Model.DescribeSecurityGroupsResponse response = client.DescribeSecurityGroups(request);
-            base.WriteObject(response.DescribeSecurityGroupsResult, true);
+            base.WriteObject(response.DescribeSecurityGroupsResult.SecurityGroup, true);
         }
     }
 }

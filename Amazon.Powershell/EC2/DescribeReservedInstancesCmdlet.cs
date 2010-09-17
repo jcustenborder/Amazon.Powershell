@@ -30,7 +30,7 @@ namespace Amazon.Powershell.EC2
                 request.ReservedInstancesId.Add(this._ReservedInstancesId);
             }
             Amazon.EC2.Model.DescribeReservedInstancesResponse response = client.DescribeReservedInstances(request);
-            base.WriteObject(response.DescribeReservedInstancesResult, true);
+            base.WriteObject(response.DescribeReservedInstancesResult.ReservedInstances, true);
         }
     }
 }

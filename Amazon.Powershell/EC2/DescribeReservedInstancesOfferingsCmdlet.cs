@@ -72,7 +72,7 @@ namespace Amazon.Powershell.EC2
             request.AvailabilityZone = this._AvailabilityZone;
             request.ProductDescription = this._ProductDescription;
             Amazon.EC2.Model.DescribeReservedInstancesOfferingsResponse response = client.DescribeReservedInstancesOfferings(request);
-            base.WriteObject(response.DescribeReservedInstancesOfferingsResult, true);
+            base.WriteObject(response.DescribeReservedInstancesOfferingsResult.ReservedInstancesOffering, true);
         }
     }
 }

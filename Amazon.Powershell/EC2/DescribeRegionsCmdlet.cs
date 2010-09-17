@@ -30,7 +30,7 @@ namespace Amazon.Powershell.EC2
                 request.RegionName.Add(this._RegionName);
             }
             Amazon.EC2.Model.DescribeRegionsResponse response = client.DescribeRegions(request);
-            base.WriteObject(response.DescribeRegionsResult, true);
+            base.WriteObject(response.DescribeRegionsResult.Region, true);
         }
     }
 }

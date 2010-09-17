@@ -30,7 +30,7 @@ namespace Amazon.Powershell.EC2
                 request.VolumeId.Add(this._VolumeId);
             }
             Amazon.EC2.Model.DescribeVolumesResponse response = client.DescribeVolumes(request);
-            base.WriteObject(response.DescribeVolumesResult, true);
+            base.WriteObject(response.DescribeVolumesResult.Volume, true);
         }
     }
 }

@@ -69,6 +69,8 @@ namespace Amazon.Powershell.CloudFront
             request.Marker = this._Marker;
             request.MaxItems = this._MaxItems;
             Amazon.CloudFront.Model.CreateDistributionResponse response = client.CreateDistribution(request);
+            WriteObject(response.Distribution);
+
         }
     }
 }

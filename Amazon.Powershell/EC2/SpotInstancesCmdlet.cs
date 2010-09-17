@@ -99,8 +99,10 @@ namespace Amazon.Powershell.EC2
                 this._AvailabilityZoneGroup = value;
             }
         }
+        
         protected override void ProcessRecord()
         {
+            
             AmazonEC2 client = base.GetClient();
             Amazon.EC2.Model.RequestSpotInstancesRequest request = new Amazon.EC2.Model.RequestSpotInstancesRequest();
             request.SpotPrice = this._SpotPrice;
@@ -111,7 +113,7 @@ namespace Amazon.Powershell.EC2
             request.LaunchGroup = this._LaunchGroup;
             request.AvailabilityZoneGroup = this._AvailabilityZoneGroup;
             Amazon.EC2.Model.RequestSpotInstancesResponse response = client.RequestSpotInstances(request);
-            base.WriteObject(response.RequestSpotInstancesResult, true);
+            base.WriteObject(response.RequestSpotInstancesResult.SpotInstanceRequest, true);
         }
     }
 }

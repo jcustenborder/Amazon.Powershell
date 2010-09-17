@@ -41,7 +41,7 @@ namespace Amazon.Powershell.EC2
             request.SnapshotId = this._SnapshotId;
             request.Attribute = this._Attribute;
             Amazon.EC2.Model.DescribeSnapshotAttributeResponse response = client.DescribeSnapshotAttribute(request);
-            base.WriteObject(response.DescribeSnapshotAttributeResult, true);
+            base.WriteObject(response.DescribeSnapshotAttributeResult.SnapshotAttribute, true);
         }
     }
 }

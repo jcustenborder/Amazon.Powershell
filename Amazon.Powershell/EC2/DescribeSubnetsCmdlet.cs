@@ -30,7 +30,7 @@ namespace Amazon.Powershell.EC2
                 request.SubnetId.Add(this._SubnetId);
             }
             Amazon.EC2.Model.DescribeSubnetsResponse response = client.DescribeSubnets(request);
-            base.WriteObject(response.DescribeSubnetsResult, true);
+            base.WriteObject(response.DescribeSubnetsResult.Subnet, true);
         }
     }
 }

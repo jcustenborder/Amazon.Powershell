@@ -69,7 +69,7 @@ namespace Amazon.Powershell.EC2
             request.Device = this._Device;
             request.Force = this._Force;
             Amazon.EC2.Model.DetachVolumeResponse response = client.DetachVolume(request);
-            base.WriteObject(response.DetachVolumeResult, true);
+            base.WriteObject(response.DetachVolumeResult.Attachment, true);
         }
     }
 }

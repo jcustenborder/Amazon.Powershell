@@ -75,7 +75,7 @@ namespace Amazon.Powershell.EC2
                 request.ProductDescription.Add(this._ProductDescription);
             }
             Amazon.EC2.Model.DescribeSpotPriceHistoryResponse response = client.DescribeSpotPriceHistory(request);
-            base.WriteObject(response.DescribeSpotPriceHistoryResult, true);
+            base.WriteObject(response.DescribeSpotPriceHistoryResult.SpotPriceHistory, true);
         }
     }
 }

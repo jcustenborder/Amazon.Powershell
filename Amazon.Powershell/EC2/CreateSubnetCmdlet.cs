@@ -55,7 +55,7 @@ namespace Amazon.Powershell.EC2
             request.CidrBlock = this._CidrBlock;
             request.AvailabilityZone = this._AvailabilityZone;
             Amazon.EC2.Model.CreateSubnetResponse response = client.CreateSubnet(request);
-            base.WriteObject(response.CreateSubnetResult, true);
+            base.WriteObject(response.CreateSubnetResult.Subnet, true);
         }
     }
 }

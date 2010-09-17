@@ -13,7 +13,7 @@ namespace Amazon.Powershell.EC2
             AmazonEC2 client = base.GetClient();
             Amazon.EC2.Model.DescribeSpotDatafeedSubscriptionRequest request = new Amazon.EC2.Model.DescribeSpotDatafeedSubscriptionRequest();
             Amazon.EC2.Model.DescribeSpotDatafeedSubscriptionResponse response = client.DescribeSpotDatafeedSubscription(request);
-            base.WriteObject(response.DescribeSpotDatafeedSubscriptionResult, true);
+            base.WriteObject(response.DescribeSpotDatafeedSubscriptionResult.SpotDatafeedSubscription, true);
         }
     }
 }

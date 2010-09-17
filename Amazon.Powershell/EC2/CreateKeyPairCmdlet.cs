@@ -27,7 +27,7 @@ namespace Amazon.Powershell.EC2
             Amazon.EC2.Model.CreateKeyPairRequest request = new Amazon.EC2.Model.CreateKeyPairRequest();
             request.KeyName = this._KeyName;
             Amazon.EC2.Model.CreateKeyPairResponse response = client.CreateKeyPair(request);
-            base.WriteObject(response.CreateKeyPairResult, true);
+            base.WriteObject(response.CreateKeyPairResult.KeyPair, true);
         }
     }
 }

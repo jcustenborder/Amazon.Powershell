@@ -44,7 +44,7 @@ namespace Amazon.Powershell.EC2
             }
             request.Force = this._Force;
             Amazon.EC2.Model.StopInstancesResponse response = client.StopInstances(request);
-            base.WriteObject(response.StopInstancesResult, true);
+            base.WriteObject(response.StopInstancesResult.StoppingInstances, true);
         }
     }
 }

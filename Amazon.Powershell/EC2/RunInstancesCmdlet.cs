@@ -198,7 +198,7 @@ namespace Amazon.Powershell.EC2
             request.DisableApiTermination = this._DisableApiTermination;
             request.InstanceInitiatedShutdownBehavior = this._InstanceInitiatedShutdownBehavior;
             Amazon.EC2.Model.RunInstancesResponse response = client.RunInstances(request);
-            base.WriteObject(response.RunInstancesResult, true);
+            base.WriteObject(response.RunInstancesResult.Reservation, true);
         }
     }
 }
