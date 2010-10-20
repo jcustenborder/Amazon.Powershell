@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+
+<project name="AWSCSharpSDKFactory-1.0" basedir="." default="release">
+
+  <import file="happytrails.xml" optional="false"/>
+
+  <!-- Properties available from happytrails.xml :
+    run.classpath, test.classpath, build.classpath
+    verbose, output.dir, unit.test.dir -->
+
+  <target name="run-unit-tests">
+    <echo message="Running Unit Tests..." />
+    <!-- Add your unit tests here. To publish your tests in Brazil make sure you
+         have an xml formatter and the "todir" attribute is set to ${unit.test.dir}.
+         Note that you can also have an additional formatters which output to console.
+
+         Example:
+
+         <junit printsummary="yes" haltonfailure="yes" fork="true">
+           <classpath>
+             <path path="${run.classpath}"/>
+             <path path="${test.classpath}"/>
+             <path path="${classes.dir}"/>
+             <path path="${test.dir}"/>
+           </classpath>
+
+           <formatter type="brief" usefile="no"/>
+
+           <formatter type="xml"/>
+
+           <batchtest fork="yes" todir="${unit.test.dir}">
+              <fileset dir="${basedir}/main/tests">
+                <include name="**/*.java"/>
+              </fileset>
+           </batchtest>
+        </junit>
+    -->
+
+  </target>
+
+  <!-- You will only need to modify this target if your test results were outputted to 
+       a directory other than ${unit.test.dir} --> 
+  <target name="unit-tests" depends="run-unit-tests">
+    <brazilunittest testResultsDir="${unit.test.dir}" brazilUnitTestsDir="${unit.test.dir}"/>
+  </target>
+
+  <target name="test" depends="unit-tests">
+  </target>
+
+  <target name="build">
+    <echo message="You need to fill in the build target code"/>
+  </target>
+
+  <target name="release" depends="build, unit-tests" description="PackageBuilder entry point">
+    <echo message="You need to fill in the release target code"/>
+
+    <!-- Empty jar file so this package can be depended on albeit being empty -->
+    <jar destfile="${output.dir}/lib/${ant.project.name}.jar"/>
+  </target>
+
+</project>

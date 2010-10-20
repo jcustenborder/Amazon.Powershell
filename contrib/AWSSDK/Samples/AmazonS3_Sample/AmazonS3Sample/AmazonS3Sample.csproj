@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9C2EF113-B90D-47A2-8E5E-C807E9FDE219}</ProjectGuid>
+    <ProjectGuid>{2BDDED7F-A870-4262-9056-E2C6A7AD9005}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AmazonS3Sample</RootNamespace>
@@ -64,6 +64,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>\Program Files\AWS SDK for .NET\bin\AWSSDK.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json.Net20, Version=3.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+      <Aliases>dotnet20</Aliases>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
