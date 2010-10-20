@@ -9,7 +9,7 @@ namespace Amazon.Powershell.EC2
     public class DescribeInstancesCmdlet : EC2CmdLet
     {
         private string _InstanceId;
-        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=true, ValueFromPipeline=true)]
         public string InstanceId
         {
             get
@@ -25,12 +25,18 @@ namespace Amazon.Powershell.EC2
         {
             AmazonEC2 client = base.GetClient();
             Amazon.EC2.Model.DescribeInstancesRequest request = new Amazon.EC2.Model.DescribeInstancesRequest();
-            if (string.IsNullOrEmpty(this._InstanceId))
+            if (!string.IsNullOrEmpty(this._InstanceId))
             {
                 request.InstanceId.Add(this._InstanceId);
             }
             Amazon.EC2.Model.DescribeInstancesResponse response = client.DescribeInstances(request);
-            base.WriteObject(response.DescribeInstancesResult.Reservation, true);
+
+            foreach(Reservation reservation in response.DescribeInstancesResult.Reservation)
+            {
+                base.WriteObject(reservation.RunningInstance);
+            }
+
+            
         }
     }
 }

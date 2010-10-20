@@ -10,7 +10,7 @@ namespace Amazon.Powershell.EC2
     {
         private string _ProductCode;
         private string _InstanceId;
-        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false, HelpMessage="This is a property help message")]
         public string ProductCode
         {
             get
@@ -34,6 +34,7 @@ namespace Amazon.Powershell.EC2
                 this._InstanceId = value;
             }
         }
+        
         protected override void ProcessRecord()
         {
             AmazonEC2 client = base.GetClient();
