@@ -9,7 +9,7 @@ namespace Amazon.Powershell.ElasticLoadBalancing
     public class RegisterInstancesWithLoadBalancerCmdlet : ElasticLoadBalancingCmdLet
     {
         private string _LoadBalancerName;
-        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        [Parameter(Mandatory=true, ValueFromPipelineByPropertyName=true)]
         public string LoadBalancerName
         {
             get
@@ -21,11 +21,29 @@ namespace Amazon.Powershell.ElasticLoadBalancing
                 this._LoadBalancerName = value;
             }
         }
+
+        private string _InstanceId;
+        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true, ValueFromPipeline = true)]
+        public string InstanceId
+        {
+            get
+            {
+                return this._InstanceId;
+            }
+            set
+            {
+                this._InstanceId = value;
+            }
+        }
+
+
+
         protected override void ProcessRecord()
         {
             AmazonElasticLoadBalancing client = base.GetClient();
             Amazon.ElasticLoadBalancing.Model.RegisterInstancesWithLoadBalancerRequest request = new Amazon.ElasticLoadBalancing.Model.RegisterInstancesWithLoadBalancerRequest();
             request.LoadBalancerName = this._LoadBalancerName;
+            request.Instances.Add(new Instance(){InstanceId=this.InstanceId});
             Amazon.ElasticLoadBalancing.Model.RegisterInstancesWithLoadBalancerResponse response = client.RegisterInstancesWithLoadBalancer(request);
             base.WriteObject(response.RegisterInstancesWithLoadBalancerResult, true);
         }
