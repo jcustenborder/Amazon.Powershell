@@ -10,7 +10,7 @@ namespace Amazon.Powershell.EC2
     {
         private string _InstanceId;
         private string _Attribute;
-        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=false)]
+        [Parameter(Mandatory=false, ValueFromPipelineByPropertyName=true)]
         public string InstanceId
         {
             get

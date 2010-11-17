@@ -20,12 +20,44 @@ namespace Amazon.Powershell.RDS
             {
                 this._DBParameterGroupName = value;
             }
+        
         }
+
+        private string _ParameterName;
+        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = false)]
+        public string ParameterName
+        {
+            get { return _ParameterName; }
+            set { _ParameterName = value; }
+        }
+        private string _ParameterValue;
+        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = false)]
+        public string ParameterValue
+        {
+            get { return _ParameterValue; }
+            set { _ParameterValue = value; }
+        }
+        private string _ApplyMethod;
+        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = false)]
+        public string ApplyMethod
+        {
+            get { return _ApplyMethod; }
+            set { _ApplyMethod = value; }
+        }
+
         protected override void ProcessRecord()
         {
             AmazonRDS client = base.GetClient();
             Amazon.RDS.Model.ModifyDBParameterGroupRequest request = new Amazon.RDS.Model.ModifyDBParameterGroupRequest();
             request.DBParameterGroupName = this._DBParameterGroupName;
+
+            Parameter parm = new Parameter();
+            parm.ParameterName = this.ParameterName;
+            parm.ParameterValue = this.ParameterValue;
+            parm.ApplyMethod = this.ApplyMethod;
+            request.Parameters.Add(parm);
+
+
             Amazon.RDS.Model.ModifyDBParameterGroupResponse response = client.ModifyDBParameterGroup(request);
             base.WriteObject(response.ModifyDBParameterGroupResult, true);
         }
